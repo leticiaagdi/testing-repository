@@ -8,7 +8,7 @@ public class Paciente {
 
     private String nome;
     private LocalDate dataNascimento;
-    private String cpf;s
+    private String cpf;
     private String rg;
     private String convenio;
     private List<Consulta> consultas; // Lista de consultas armazenada dentro da classe Paciente
@@ -68,7 +68,39 @@ public class Paciente {
         this.convenio = convenio;
     }
 
-    // Métodos para adicionar, obter e excluir consultas (já implementados anteriormente)
+    public void adicionarConsulta(String dataConsulta, String horaConsulta, String medicoConsulta, String especialidadeConsulta) {
+        int idConsulta = consultas.size() + 1; // Gera um ID único para cada consulta
+        consultas.add(new Consulta(idConsulta, dataConsulta, horaConsulta, medicoConsulta, especialidadeConsulta));
+    }
+
+    public List<Consulta> obterConsultas() {
+        return consultas;
+    }
+
+    public void excluirConsulta(int idConsulta) {
+        for (int i = 0; i < consultas.size(); i++) {
+            Consulta consulta = consultas.get(i);
+            if (consulta.id() == idConsulta) {
+                consultas.remove(i);
+                break;
+            }
+        }
+    }
+    
+    // Exemplo de uso
+    public static void main(String[] args) {
+        Paciente paciente1 = new Paciente("João Silva", LocalDate.of(1980, 1, 1), "123.456.789-00", "12.345.678-9", "Plano de Saúde Exemplo");
+
+        paciente1.adicionarConsulta("2024-04-28", "10:00", "Dr. José da Silva", "Cardiologia");
+
+        List<Consulta> consultasPaciente = paciente1.obterConsultas();
+        System.out.println(consultasPaciente);
+
+        paciente1.excluirConsulta(1); // Exclui a consulta com ID 1
+
+        List<Consulta> consultasPacienteAtualizado = paciente1.obterConsultas();
+        System.out.println(consultasPacienteAtualizado);
+    }
 
     // Exemplo de uso (já implementado anteriormente)
 
